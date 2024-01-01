@@ -33,24 +33,17 @@ pub const Prop = struct {
 pub const Traverser = struct {
     const Self = @This();
 
-    blob: []const u8,
+    blob: [*]const u8,
     header: fdt.FDTHeader,
     offset: usize,
     state: State,
 
-    pub fn init(self: *Self, blob: []const u8) Error!void {
-        if (blob.len < @sizeOf(fdt.FDTHeader)) {
-            return error.Truncated;
-        }
-
+    pub fn init(self: *Self, blob: [*]const u8) Error!void {
         self.blob = blob;
 
-        const header = util.structBigToNative(fdt.FDTHeader, @as(*align(1) const fdt.FDTHeader, @ptrCast(blob.ptr)).*);
+        const header = util.structBigToNative(fdt.FDTHeader, @as(*align(1) const fdt.FDTHeader, @ptrCast(blob)).*);
         if (header.magic != fdt.FDTMagic) {
             return error.BadMagic;
-        }
-        if (blob.len < header.totalsize) {
-            return error.Truncated;
         }
         if (header.version != 17) {
             return error.UnsupportedVersion;

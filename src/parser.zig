@@ -9,7 +9,7 @@ pub const Error = traverser.Error || std.mem.Allocator.Error || error{
     BadValue,
 };
 
-pub fn parse(allocator: std.mem.Allocator, blob: []const u8) Error!*dtb.Node {
+pub fn parse(allocator: std.mem.Allocator, blob: [*]const u8) Error!*dtb.Node {
     var parser: Parser = undefined;
     try parser.init(allocator, blob);
 
@@ -37,7 +37,7 @@ const Parser = struct {
     allocator: std.mem.Allocator = undefined,
     traverser: traverser.Traverser = undefined,
 
-    fn init(self: *Self, allocator: std.mem.Allocator, blob: []const u8) !void {
+    fn init(self: *Self, allocator: std.mem.Allocator, blob: [*]const u8) !void {
         self.* = Parser{
             .allocator = allocator,
             .traverser = undefined,
