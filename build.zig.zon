@@ -1,0 +1,13 @@
+.{
+    .name = .dtb,
+    .version = "0.0.0",
+    .fingerprint = 0x58700668eb2cb9e1,
+    .dependencies = .{},
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "LICENSE",
+        "README.md",
+    },
+}
