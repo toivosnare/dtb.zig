@@ -1,5 +1,7 @@
 const std = @import("std");
 
+pub usingnamespace @import("src/dtb.zig");
+
 pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
     const target = b.standardTargetOptions(.{});
